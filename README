@@ -1,0 +1,71 @@
+NAME
+    File::Find::Rule::VCS - Exclude files/directories for Version Control
+    Systems
+
+SYNOPSIS
+      use File::Find::Rule      ();
+      use File::Find::Rule::VCS ();
+  
+      # Find all files smaller than 10k, ignoring anything in the CVS dirs
+      my @files = File::Find::Rule->discard_cvs
+                                  ->file
+                                  ->size('<10Ki')
+                                  ->in( $dir );
+
+DESCRIPTION
+    I find myself doing exclusion of CVS or Subversion directories over and
+    over again in almost every major FFR thing I write.
+
+    File::Find::Rule::VCS provides methods to exclude the version control
+    directories of several major Version Control Systems. Initially, this is
+    just CVS and Subversion, but if you have an snippit of FFR code for any
+    other VCS, I'd be happy to take and include it.
+
+METHODS
+  discard_vcs($vcsname)
+    The "discard_vcs" method excludes the files for a named Version Control
+    System from your File::Find::Rule search. The name of the VCS is case
+    in-sensitive.
+
+    Names currently supported are 'cvs', 'svn' and 'subversion'.
+
+    The use of none, or any other name will throw an exception.
+
+  discard_cvs
+    The "discard_cvs" method excluding all CVS directories from your
+    File::Find::Rule search.
+
+  discard_svn
+    The "discard_svn" method excluding all Subversion (".svn") directories
+    from your File::Find::Rule search.
+
+TO DO
+    - Add support for other version control systems.
+
+    - Possibly exclude those garbage/backup files that CVS leaves lying
+    around after a merge
+
+    - Add other useful VCS-related methods
+
+SUPPORT
+    Bugs should always be submitted via the CPAN bug tracker
+
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=File-Find-Rule-VCS>
+
+    For other issues, contact the maintainer
+
+AUTHOR
+    Adam Kennedy (Maintainer), <http://ali.as/>, cpan@ali.as
+
+SEE ALSO
+    File::Find::Rule
+
+COPYRIGHT
+    Copyright (c) 2005 Adam Kennedy. All rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+    The full text of the license can be found in the LICENSE file included
+    with this module.
+
