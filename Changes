@@ -1,4 +1,8 @@
 Revision history for Perl extension File::Find::Rule::VCS
 
+0.02 Sat Feb 12 2005
+	- Decided that ignore_ was better than discard_
+	- When filtering CVS, remove those post-merge dot-hash files
+
 0.01 Fri Feb 11 2005
 	- Created the initial version of the module

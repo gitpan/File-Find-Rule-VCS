@@ -1,5 +1,5 @@
 name: File-Find-Rule-VCS
-version: 0.01
+version: 0.02
 abstract: Exclude files/directories for Version Control Systems
 author: Adam Kennedy<cpan@ali.as>
 license: perl

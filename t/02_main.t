@@ -21,12 +21,12 @@ use File::Find::Rule::VCS ();
 use constant FFR => 'File::Find::Rule';
 
 # Check the methods are added
-ok( FFR->can('discard_vcs'), '->discard_vcs method exists' );
-ok( FFR->can('discard_cvs'), '->discard_cvs method exists' );
-ok( FFR->can('discard_svn'), '->discard_svn method exists' );
+ok( FFR->can('ignore_vcs'), '->ignore_vcs method exists' );
+ok( FFR->can('ignore_cvs'), '->ignore_cvs method exists' );
+ok( FFR->can('ignore_svn'), '->ignore_svn method exists' );
 
 # Make an object containing all of them
-my $Rule = File::Find::Rule->new->discard_cvs->discard_svn;
+my $Rule = File::Find::Rule->new->ignore_cvs->ignore_svn;
 isa_ok( $Rule, 'File::Find::Rule' );
 
 exit(0);

@@ -11,8 +11,8 @@ File::Find::Rule::VCS - Exclude files/directories for Version Control Systems
   use File::Find::Rule      ();
   use File::Find::Rule::VCS ();
   
-  # Find all files smaller than 10k, ignoring anything in the CVS dirs
-  my @files = File::Find::Rule->discard_cvs
+  # Find all files smaller than 10k, ignoring any CVS files/dirs
+  my @files = File::Find::Rule->ignore_cvs
                               ->file
                               ->size('<10Ki')
                               ->in( $dir );
@@ -38,7 +38,7 @@ use constant FFR => 'File::Find::Rule';
 
 use vars qw{$VERSION @EXPORT};
 BEGIN {
-	$VERSION = '0.01';
+	$VERSION = '0.02';
 	@EXPORT  = @File::Find::Rule::EXPORT;
 }
 
@@ -51,9 +51,9 @@ BEGIN {
 
 =pod
 
-=head2 discard_vcs($vcsname)
+=head2 ignore_vcs($vcsname)
 
-The C<discard_vcs> method excludes the files for a named Version Control
+The C<ignore_vcs> method excludes the files for a named Version Control
 System from your L<File::Find::Rule> search. The name of the VCS is case
 in-sensitive.
 
@@ -63,46 +63,50 @@ The use of none, or any other name will throw an exception.
 
 =cut
 
-sub File::Find::Rule::discard_vcs {
+sub File::Find::Rule::ignore_vcs {
 	my $self = shift()->_force_object;
 	my $vcs  = defined $_[0] ? lc shift
-		: die "->discard_vcs: No Version Control System name provided";
+		: die "->ignore_vcs: No Version Control System name provided";
 
 	# Hand off to the rules for each VCS
-	return $self->discard_cvs if $vcs eq 'cvs';
-	return $self->discard_svn if $vcs eq 'svn';
-	return $self->discard_svn if $vcs eq 'subversion';
+	return $self->ignore_cvs if $vcs eq 'cvs';
+	return $self->ignore_svn if $vcs eq 'svn';
+	return $self->ignore_svn if $vcs eq 'subversion';
 
-	die "->discard_vcs: '$vcs' is not supported";
+	die "->ignore_vcs: '$vcs' is not supported";
 }
 
 =pod
 
-=head2 discard_cvs
+=head2 ignore_cvs
 
-The C<discard_cvs> method excluding all CVS directories from your
+The C<ignore_cvs> method excluding all CVS directories from your
 L<File::Find::Rule> search.
+
+It will also exclude all the files left around by CVS after an
+automated merge that start with C<'.#'> (dot-hash).
 
 =cut
 
-sub File::Find::Rule::discard_cvs {
+sub File::Find::Rule::ignore_cvs {
 	my $self = shift()->_force_object;
 	$self->or(
 		FFR->directory->name('CVS')->prune->discard,
+		FFR->file->name(qr/^\.\#/)->discard,
 		FFR->new,
 		);
 }
 
 =pod
 
-=head2 discard_svn
+=head2 ignore_svn
 
-The C<discard_svn> method excluding all Subversion (C<.svn>) directories
+The C<ignore_svn> method excluding all Subversion (C<.svn>) directories
 from your L<File::Find::Rule> search.
 
 =cut
 
-sub File::Find::Rule::discard_svn {
+sub File::Find::Rule::ignore_svn {
 	my $self = shift()->_force_object;
 	$self->or(
 		FFR->directory->name('.svn')->prune->discard,
@@ -117,9 +121,6 @@ sub File::Find::Rule::discard_svn {
 =head1 TO DO
 
 - Add support for other version control systems.
-
-- Possibly exclude those garbage/backup files that CVS leaves lying around
-after a merge
 
 - Add other useful VCS-related methods
 
