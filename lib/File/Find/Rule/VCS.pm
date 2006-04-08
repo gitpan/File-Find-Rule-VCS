@@ -22,7 +22,7 @@ File::Find::Rule::VCS - Exclude files/directories for Version Control Systems
 I find myself doing exclusion of CVS or Subversion directories over and
 over again in almost every major FFR thing I write.
 
-File::Find::Rule::VCS provides methods to exclude the version control
+B<File::Find::Rule::VCS> provides methods to exclude the version control
 directories of several major Version Control Systems. Initially, this is
 just CVS and Subversion, but if you have an snippit of FFR code for any
 other VCS, I'd be happy to take and include it.
@@ -31,14 +31,16 @@ other VCS, I'd be happy to take and include it.
 
 =cut
 
+use 5.005;
 use strict;
 use UNIVERSAL;
+use Carp ();
 use base 'File::Find::Rule';
 use constant FFR => 'File::Find::Rule';
 
 use vars qw{$VERSION @EXPORT};
 BEGIN {
-	$VERSION = '0.02';
+	$VERSION = '1.00';
 	@EXPORT  = @File::Find::Rule::EXPORT;
 }
 
@@ -51,7 +53,9 @@ BEGIN {
 
 =pod
 
-=head2 ignore_vcs($vcsname)
+=head2 ignore_vcs
+
+  $FFR_object->ignore_vcs($vcsname);
 
 The C<ignore_vcs> method excludes the files for a named Version Control
 System from your L<File::Find::Rule> search. The name of the VCS is case
@@ -66,14 +70,14 @@ The use of none, or any other name will throw an exception.
 sub File::Find::Rule::ignore_vcs {
 	my $self = shift()->_force_object;
 	my $vcs  = defined $_[0] ? lc shift
-		: die "->ignore_vcs: No Version Control System name provided";
+		: Carp::croak("->ignore_vcs: No Version Control System name provided");
 
 	# Hand off to the rules for each VCS
 	return $self->ignore_cvs if $vcs eq 'cvs';
 	return $self->ignore_svn if $vcs eq 'svn';
 	return $self->ignore_svn if $vcs eq 'subversion';
 
-	die "->ignore_vcs: '$vcs' is not supported";
+	Carp::croak("->ignore_vcs: '$vcs' is not supported");
 }
 
 =pod
@@ -134,15 +138,15 @@ For other issues, contact the maintainer
 
 =head1 AUTHOR
 
-Adam Kennedy (Maintainer), L<http://ali.as/>, cpan@ali.as
+Adam Kennedy E<lt>cpan@ali.asE<gt>
 
 =head1 SEE ALSO
 
-L<File::Find::Rule>
+L<http://ali.as/>, L<File::Find::Rule>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005 Adam Kennedy. All rights reserved.
+Copyright 2005, 2006 Adam Kennedy. All rights reserved.
 
 This program is free software; you can redistribute
 it and/or modify it under the same terms as Perl itself.

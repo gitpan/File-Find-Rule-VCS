@@ -22,7 +22,9 @@ DESCRIPTION
     other VCS, I'd be happy to take and include it.
 
 METHODS
-  ignore_vcs($vcsname)
+  ignore_vcs
+      $FFR_object->ignore_vcs($vcsname);
+
     The "ignore_vcs" method excludes the files for a named Version Control
     System from your File::Find::Rule search. The name of the VCS is case
     in-sensitive.
@@ -55,13 +57,13 @@ SUPPORT
     For other issues, contact the maintainer
 
 AUTHOR
-    Adam Kennedy (Maintainer), <http://ali.as/>, cpan@ali.as
+    Adam Kennedy <cpan@ali.as>
 
 SEE ALSO
-    File::Find::Rule
+    <http://ali.as/>, File::Find::Rule
 
 COPYRIGHT
-    Copyright (c) 2005 Adam Kennedy. All rights reserved.
+    Copyright 2005, 2006 Adam Kennedy. All rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

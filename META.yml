@@ -1,16 +1,18 @@
-name: File-Find-Rule-VCS
-version: 0.02
-abstract: Exclude files/directories for Version Control Systems
-author: Adam Kennedy<cpan@ali.as>
-license: perl
-distribution_type: module
-build_requires:
-  File::Spec: 0.82
-  Test::More: 0.47
-requires:
-  perl: 5.005
-  File::Find::Rule: 0.20
-no_index:
-  directory:
+
+no_index: 
+  directory: 
     - inc
-generated_by: Module::Install version 0.36
+    - t
+generated_by: Module::Install version 0.62
+distribution_type: module
+version: 1.00
+name: File-Find-Rule-VCS
+author: Adam Kennedy <cpan@ali.as>
+license: perl
+build_requires: 
+  Test::More: 0.47
+  File::Spec: 0.82
+requires: 
+  File::Find::Rule: 0.20
+  perl: 5.005
+abstract: Exclude files/directories for Version Control Systems
