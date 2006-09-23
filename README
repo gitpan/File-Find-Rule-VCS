@@ -31,7 +31,11 @@ METHODS
 
     Names currently supported are 'cvs', 'svn' and 'subversion'.
 
-    The use of none, or any other name will throw an exception.
+    As a convenience for high-level APIs, if the VCS name is the defined
+    null string '' then the call will be treated as a nullop.
+
+    The use of no param, or of undef, or any other name, will throw an
+    exception.
 
   ignore_cvs
     The "ignore_cvs" method excluding all CVS directories from your
