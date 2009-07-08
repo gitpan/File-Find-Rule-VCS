@@ -5,8 +5,8 @@ NAME
 SYNOPSIS
       use File::Find::Rule      ();
       use File::Find::Rule::VCS ();
-  
-      # Find all files smaller than 10k, ignoring version control files
+      
+  # Find all files smaller than 10k, ignoring version control files
       my @files = File::Find::Rule->ignore_vcs
                                   ->file
                                   ->size('<10Ki')
@@ -37,11 +37,11 @@ METHODS
   ignore_vcs
       # Ignore all common version control systems
       $find->ignore_vcs;
-
-      # Ignore a specific named version control systems
+      
+  # Ignore a specific named version control systems
       $find->ignore_vcs($name);
-  
-      # Ignore nothing (silent pass-through)
+      
+  # Ignore nothing (silent pass-through)
       $find->ignore_vcs('');
 
     The "ignore_vcs" method excludes the files for a named Version Control
@@ -99,7 +99,7 @@ SEE ALSO
     <http://ali.as/>, File::Find::Rule
 
 COPYRIGHT
-    Copyright 2005 - 2008 Adam Kennedy.
+    Copyright 2005 - 2009 Adam Kennedy.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
